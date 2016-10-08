@@ -3,10 +3,67 @@
 	border-radius: 50%;	
 }
 
-.btn_dan {
+.btn_dan_landscape {
 	height: 12vw;
 	width: 8vw;
 	position: absolute;
+	top: 12vw;
+	left: 26.7vw;
+}
+
+.btn_lidnesy_landscape {
+	height: 12vw;
+	width: 8vw;
+	position: absolute;
+	top: 15vw;
+	left: 11vw;
+}
+.btn_mike_landscape {
+	height: 14vw;
+	width: 10vw;
+	position: absolute;
+	top: 24vw;
+	left: 20vw;
+}
+.btn_joe_landscape {
+	height: 14vw;
+	width: 10vw;
+	position: absolute;
 	top: 11vw;
-	left: 26vw;
+	left: 39.5vw;
+}
+.btn_dad_landscape {
+	height: 14vw;
+	width: 10vw;
+	position: absolute;
+	top: 11vw;
+	left: 48vw;
+}
+.btn_mom_landscape {
+	height: 14vw;
+	width: 10vw;
+	position: absolute;
+	top: 13vw;
+	left: 57vw;
+}
+.btn_tom_landscape {
+	height: 14vw;
+	width: 10vw;
+	position: absolute;
+	top: 9vw;
+	left: 69vw;
+}
+.btn_sam_landscape {
+	height: 14vw;
+	width: 10vw;
+	position: absolute;
+	top: 17vw;
+	left: 75vw;
+}
+#map {
+	min-height: 300px;
+      }
+body {
+	margin: 0;
+	padding: 0;
 }

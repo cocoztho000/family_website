@@ -13,30 +13,42 @@
   <link rel="stylesheet" type="text/css" href="style/bootstrap-responsive.min.css" />
   <link rel="stylesheet" type="text/css" href="style/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="style/index.css" />
-<!--   <script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('.map').maphilight();
-        });
-    </script>
-   <script type="text/javascript">
-   	function get_screen_width_px(percent) {
+  <link rel="stylesheet" type="text/css" href="style/header_footer.css" />
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="script/js.js"></script>
 
-   	}
-   </script> -->
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG6BfJ49HyJfYj_OiLv5epUBsX3e-UCD0&callback=initMap" async defer></script>
 </head>
 <body>
+<header id="head">
+    <div id="leftSide"> 
+      <h1 id="name_big">
+        Cocozzello
+      </h1>
+      <img id="name_small" src="images/logo.ico" alt="name small">
+      <h3>Family Website</h3>
+    </div>
+    <div id="rightSide">
+      <ul id="hint_ul">
+        <li>
+          <p id="hint">Click a face of the person your looking for</p>
+        </li>
+      </ul>
+    </div>
+  </header>
 
-<img class="map" src="images/family.JPG" width="100%" alt="Planets" usemap="#planetmap">
 
-<button class="btn btn_override btn_dan" type="button">Dan</button>
-<button class="btn btn_override" type="button">Dan</button>
-<button class="btn btn_override" type="button">Dan</button>
+  <img id="family" src="images/family.JPG" width="100%" alt="Planets" usemap="#planetmap">
 
-<map name="planetmap">
-  <area shape="circle" coords="80%,50%,40px" href="#" alt="Sun">
-  <area shape="circle" coords="515,120,35" href="#" alt="Sun">
-</map>
+  <button class="btn btn_override btn_dan_landscape" type="button">Dan</button>
+  <button class="btn btn_override btn_lidnesy_landscape" type="button">Lidnesy</button>
+  <button class="btn btn_override btn_mike_landscape" type="button">Mike</button>
+
+  <button class="btn btn_override btn_joe_landscape" type="button">Joe</button>
+  <button class="btn btn_override btn_dad_landscape" type="button">Dad</button>
+  <button class="btn btn_override btn_mom_landscape" type="button">Mom</button>
+  <button class="btn btn_override btn_tom_landscape" type="button">Tom</button>
+  <button class="btn btn_override btn_sam_landscape" type="button">Sam</button>
+  <div id="map"></div>
 </body>
 </html>
