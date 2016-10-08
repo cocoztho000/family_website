@@ -1,14 +1,20 @@
 .btn_override {
 	background: transparent;
 	border-radius: 50%;	
+	border: none;
 }
-
+.btn_override:hover, .btn_override:focus {
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
 .btn_dan_landscape {
 	height: 12vw;
 	width: 8vw;
 	position: absolute;
 	top: 12vw;
 	left: 26.7vw;
+	z-index: 2;
 }
 
 .btn_lidnesy_landscape {
@@ -17,6 +23,7 @@
 	position: absolute;
 	top: 15vw;
 	left: 11vw;
+	z-index: 2;
 }
 .btn_mike_landscape {
 	height: 14vw;
@@ -24,6 +31,7 @@
 	position: absolute;
 	top: 24vw;
 	left: 20vw;
+	z-index: 2;
 }
 .btn_joe_landscape {
 	height: 14vw;
@@ -31,6 +39,7 @@
 	position: absolute;
 	top: 11vw;
 	left: 39.5vw;
+	z-index: 2;
 }
 .btn_dad_landscape {
 	height: 14vw;
@@ -38,6 +47,7 @@
 	position: absolute;
 	top: 11vw;
 	left: 48vw;
+	z-index: 2;
 }
 .btn_mom_landscape {
 	height: 14vw;
@@ -45,6 +55,7 @@
 	position: absolute;
 	top: 13vw;
 	left: 57vw;
+	z-index: 2;
 }
 .btn_tom_landscape {
 	height: 14vw;
@@ -52,6 +63,7 @@
 	position: absolute;
 	top: 9vw;
 	left: 69vw;
+	z-index: 2;
 }
 .btn_sam_landscape {
 	height: 14vw;
@@ -59,10 +71,18 @@
 	position: absolute;
 	top: 17vw;
 	left: 75vw;
+	z-index: 2;
+
 }
 #map {
 	min-height: 300px;
-      }
+	z-index: 0;
+}
+#family {
+	box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, .5);
+	z-index: 1;
+	position: relative;
+}
 body {
 	margin: 0;
 	padding: 0;
