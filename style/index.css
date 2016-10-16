@@ -1,7 +1,7 @@
 .btn_override {
 	background: transparent;
 	border-radius: 50%;	
-	border: black 1px solid;
+	border: none;
 }
 .btn_override:hover, .btn_override:focus {
 	background: transparent;
@@ -76,12 +76,12 @@
 	z-index: 2;
 }
 
-.btn_diageo_landscape {
-	height: 12vw;
-	width: 9vw;
+.btn_diego_landscape {
+	height: 7vw;
+	width: 6vw;
 	position: absolute;
-	top: 17vw;
-	left: 73vw;
+	top: 32vw;
+	left: 57vw;
 	z-index: 2;
 }
 

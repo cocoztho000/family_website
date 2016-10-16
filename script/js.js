@@ -1,6 +1,7 @@
 
 
 var hidden = 0;
+var name_of_person_clicked = ''
 $(window).scroll( function(){
 	if($(window).scrollTop() > 0) 
 		hidden = 0;
@@ -16,7 +17,8 @@ $(window).scroll( function(){
 	else {
 		document.getElementById('head').style.removeProperty("backgroundColor");
 	    document.getElementById('head').style["transition"] = "background-color 1s .2s ease";
-	    document.getElementById('head').style["backgroundColor"] = "transparent";
+        document.getElementById('head').style["backgroundColor"] = "transparent";
+	    document.getElementById('head').style["box-shadow"] = "none";
 	}
 });
 
@@ -42,32 +44,88 @@ $(window).resize(function(e) {
 });
 
 $(function() {
-	$('.btn_mike_landscape').hover(function(e) {
-            moveTo(map, MikeLatLng, MikeZoom, marker_mike); 
+	$('.btn_mike_landscape').click(function(e) {
+            if (name_of_person_clicked == 'mike') {
+                // Go to mike webpage
+            }
+            else {
+                name_of_person_clicked = 'mike'
+            }
+            moveTo(map, MikeLatLng, MikeZoom, marker_mike);
         });
-	$('.btn_joe_landscape').hover(function(e) {
+	$('.btn_joe_landscape').click(function(e) {
+            if (name_of_person_clicked == 'joe') {
+                // Go to mike webpage
+            }
+            else {
+                name_of_person_clicked = 'joe'
+            }
             moveTo(map, JoeLatLng, JoeZoom, marker_joe);  
         });
-	$('.btn_mom_landscape').hover(function(e) {
+	$('.btn_mom_landscape').click(function(e) {
+            if (name_of_person_clicked == 'mom') {
+                // Go to mike webpage
+            }
+            else {
+                name_of_person_clicked = 'mom'
+            }
             moveTo(map, MomLatLng, MomZoom, marker_mom);  
         });
-	$('.btn_dad_landscape').hover(function(e) {
+	$('.btn_dad_landscape').click(function(e) {
+            if (name_of_person_clicked == 'dan') {
+                // Go to mike webpage
+            }
+            else {
+                name_of_person_clicked = 'dan'
+            }
             moveTo(map, DadLatLng, DadZoom, marker_dad);  
         });
-	$('.btn_tom_landscape').hover(function(e) {
-        	moveTo(map, TomLatLng, TomZoom, marker_tom);  
+	$('.btn_tom_landscape').click(function(e) {
+        	if (name_of_person_clicked == 'tom') {
+                // Go to mike webpage
+                window.location = 'www.cocozzello.com';
+            }
+            else {
+                name_of_person_clicked = 'tom'
+            }
+            moveTo(map, TomLatLng, TomZoom, marker_tom);  
         });
-	$('.btn_sam_landscape').hover(function(e) {
+	$('.btn_sam_landscape').click(function(e) {
+            if (name_of_person_clicked == 'sam') {
+                // Go to mike webpage
+                window.location = 'www.cocozzello.com/sam';
+            }
+            else {
+                name_of_person_clicked = 'sam'
+            }
             moveTo(map, SamLatLng, SamZoom, marker_sam);  
         });
-	$('.btn_lidnesy_landscape').hover(function(e) {
-            moveTo(map, lidnesyLatLng, LidnesyZoom, marker_lid);  
+	$('.btn_lidnesy_landscape').click(function(e) {
+           if (name_of_person_clicked == 'lidnesy') {
+                // Go to mike webpage
+            }
+            else {
+                name_of_person_clicked = 'lidnesy'
+            }
+             moveTo(map, lidnesyLatLng, LidnesyZoom, marker_lid);  
         });
-    $('.btn_dan_landscape').hover(function(e) {
+    $('.btn_dan_landscape').click(function(e) {
+            if (name_of_person_clicked == 'dan') {
+                // Go to mike webpage
+            }
+            else {
+                name_of_person_clicked = 'dan'
+            }
             moveTo(map, DanLatLng, DanZoom, marker_dan);  
         });
-	$('.btn_diageo_landscape').hover(function(e) {
-            moveTo(map, DanLatLng, DanZoom, marker_diageo);  
+	$('.btn_diego_landscape').click(function(e) {
+            if (name_of_person_clicked == 'diego') {
+                // Go to mike webpage
+            }
+            else {
+                name_of_person_clicked = 'diego'
+            }
+            moveTo(map, diegoLatLng, diegoZoom, marker_diego);  
         });
 });
 
@@ -76,10 +134,14 @@ var panQueue = [];  // An array of subsequent panTo actions to take
 var STEPS = 200;     // The number of steps that each panTo action will undergo
 
 var map
-var marker_tom, marker_sam, marker_lid, marker_mike, marker_joe, marker_mom, marker_dad, marker_dan, marker_diageo;
-var tomiw, samiw, lidiw, mikeiw, joeiw, momiw, dadiw, daniw, diageoiw;
-var animate_zoom_time_gap = 400;
+var marker_tom, marker_sam, marker_lid, marker_mike, marker_joe, marker_mom, marker_dad, marker_dan, marker_diego;
+// var tomiw, samiw, lidiw, mikeiw, joeiw, momiw, dadiw, daniw, diegoiw;
+var animate_zoom_time_gap = 200;
 var map_zoom_out_to       = 1;
+
+// Keep track of all pending animations to clear them if someone triggers a differet
+// person
+var timeouts = [];
 
 var TomLatLng       = {lat: 43.9959019, lng: -92.6212583};
 var TomZoom         = 12;
@@ -105,8 +167,8 @@ var DadZoom         = 14;
 var DanLatLng       = {lat: -33.8642497, lng: 151.1876884};
 var DanZoom         = 13;
 
-var DiageoLatLng    = {lat: 40.7056079, lng: -74.0134997};
-var DiageoZoom      = 13;
+var diegoLatLng    = {lat: 41.0221779, lng: -83.922091};
+var diegoZoom      = 13;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -121,15 +183,15 @@ function initMap() {
         disableDoubleClickZoom: true, 
         mapTypeId: 'terrain'});
 
-    tomiw = new google.maps.InfoWindow({
-      content: "Tom hasn't set a favorite place"
+    var tomiw = new google.maps.InfoWindow({
+      content: 'Tom hasnt set a favorite place'
     });
     marker_tom = new google.maps.Marker({
         position: TomLatLng,
         map: map,
         title: "Tom"
     });
-    tomiw.addListener('click', function() {
+    marker_tom.addListener('click', function() {
       tomiw.open(map, marker_tom);
     });
 
@@ -141,45 +203,110 @@ function initMap() {
         map: map,
         title: 'Sam'
     });
-    samiw.addListener('click', function() {
+    marker_sam.addListener('click', function() {
       samiw.open(map, marker_sam);
     });
 
 
+    lidiw = new google.maps.InfoWindow({
+      content: "Honolulu"
+    });
     marker_lid = new google.maps.Marker({
         position: lidnesyLatLng,
         map: map,
         title: 'Lidnesy'
+    });
+    marker_lid.addListener('click', function() {
+      lidiw.open(map, marker_lid);
+    });
+
+
+    mikeiw = new google.maps.InfoWindow({
+      content: "London Eye"
     });
     marker_mike = new google.maps.Marker({
         position: MikeLatLng,
         map: map,
         title: 'Mike'
     });
+    marker_mike.addListener('click', function() {
+      mikeiw.open(map, marker_mike);
+    });
+
+
+    joeiw = new google.maps.InfoWindow({
+      content: "Brooklyn"
+    });
     marker_joe = new google.maps.Marker({
         position: JoeLatLng,
         map: map,
         title: 'Joe'
+    });
+    marker_joe.addListener('click', function() {
+      joeiw.open(map, marker_joe);
+    });
+
+    var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Jones beach</h1>'+
+            '<div id="bodyContent">'+
+            '<p>As a child they would go to the beach around 3:30 when everyone has exited. After'+
+            ' her and her siblings came out of the water her Dad '+
+            'would give them each a box of cracker jacks with the prize '+
+            'inside. They would eat their dinner there and watch the sun set.</p>'+
+            '</div>'+
+            '</div>';
+
+    momiw = new google.maps.InfoWindow({
+      content: contentString
     });
     marker_mom = new google.maps.Marker({
         position: MomLatLng,
         map: map,
         title: 'Mom'
     });
+    marker_mom.addListener('click', function() {
+      momiw.open(map, marker_mom);
+    });
+
+
+    dadiw = new google.maps.InfoWindow({
+      content: "Town Named After Our Family"
+    });
     marker_dad = new google.maps.Marker({
         position: DadLatLng,
         map: map,
         title: 'Dad'
+    });
+    marker_dad.addListener('click', function() {
+      dadiw.open(map, marker_dad);
+    });
+
+
+    daniw = new google.maps.InfoWindow({
+      content: "Sydney Austraila"
     });
     marker_dan = new google.maps.Marker({
         position: DanLatLng,
         map: map,
         title: 'Dan'
     });
-    marker_diageo = new google.maps.Marker({
-        position: DiageoLatLng,
+    marker_dan.addListener('click', function() {
+      daniw.open(map, marker_dan);
+    });
+
+
+    diegoiw = new google.maps.InfoWindow({
+      content: "The Gilboa Town Bull"
+    });
+    marker_diego = new google.maps.Marker({
+        position: diegoLatLng,
         map: map,
-        title: 'Diageo'
+        title: 'Diego'
+    });
+    marker_diego.addListener('click', function() {
+      diegoiw.open(map, marker_diego);
     });
 }
 
@@ -198,32 +325,40 @@ function hide_all_markers() {
     marker_mom.setVisible(false);
     marker_dad.setVisible(false);
     marker_dan.setVisible(false);
-    marker_diageo.setVisible(false);
+    marker_diego.setVisible(false);
 }
 
 function moveTo(map, lat_and_lng, target_zoom, marker) {
     hide_all_markers();
+    clear_pending_animations();
     var step_one_time = (map.getZoom() - map_zoom_out_to) * (animate_zoom_time_gap/1.5)
     var time_to_trigger_move =  step_one_time;
-    var time_to_trigger_zoom = step_one_time * 1.3;
-    var time_to_trigger_marker = step_one_time * 2.3;
+    var time_to_trigger_zoom = step_one_time * 2.5;
+    var time_to_trigger_marker = step_one_time * 5;
 
     animateMapZoomTo(map, map_zoom_out_to);
 
-    setTimeout(function (){
+    timeouts.push( setTimeout(function (){
         moveToLocation(lat_and_lng);
-    }, time_to_trigger_move);
+    }, time_to_trigger_move));
 
-    setTimeout(function (){
+    timeouts.push( setTimeout(function (){
         animateMapZoomTo(map, target_zoom);
-    }, time_to_trigger_zoom);
+    }, time_to_trigger_zoom));
 
-    setTimeout(function (){
+    timeouts.push( setTimeout(function (){
         marker.setVisible(true);
         marker.setAnimation(google.maps.Animation.DROP);
-    }, time_to_trigger_marker);
+    }, time_to_trigger_marker));
 }
 
+function clear_pending_animations() {
+    for (var i = 0; i < timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+    }
+    //quick reset of the timer array you just cleared
+    timeouts = [];
+}
 
 function animateMapZoomTo(map, targetZoom) {
     var currentZoom = arguments[2] || map.getZoom();
