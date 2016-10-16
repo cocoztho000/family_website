@@ -1,7 +1,7 @@
 .btn_override {
 	background: transparent;
 	border-radius: 50%;	
-	border: none;
+	border: black 1px solid;
 }
 .btn_override:hover, .btn_override:focus {
 	background: transparent;
@@ -29,7 +29,7 @@
 	height: 14vw;
 	width: 10vw;
 	position: absolute;
-	top: 24vw;
+	top: 23vw;
 	left: 20vw;
 	z-index: 2;
 }
@@ -38,7 +38,7 @@
 	width: 10vw;
 	position: absolute;
 	top: 11vw;
-	left: 39.5vw;
+	left: 39vw;
 	z-index: 2;
 }
 .btn_dad_landscape {
@@ -57,23 +57,34 @@
 	left: 57vw;
 	z-index: 2;
 }
+
 .btn_tom_landscape {
 	height: 14vw;
 	width: 10vw;
 	position: absolute;
 	top: 9vw;
-	left: 69vw;
+	left: 67vw;
 	z-index: 2;
 }
+
 .btn_sam_landscape {
-	height: 14vw;
-	width: 10vw;
+	height: 12vw;
+	width: 9vw;
 	position: absolute;
 	top: 17vw;
-	left: 75vw;
+	left: 73vw;
 	z-index: 2;
-
 }
+
+.btn_diageo_landscape {
+	height: 12vw;
+	width: 9vw;
+	position: absolute;
+	top: 17vw;
+	left: 73vw;
+	z-index: 2;
+}
+
 #map {
 	min-height: 300px;
 	z-index: 0;
