@@ -331,10 +331,10 @@ function hide_all_markers() {
 function moveTo(map, lat_and_lng, target_zoom, marker) {
     hide_all_markers();
     clear_pending_animations();
-    var step_one_time = (map.getZoom() - map_zoom_out_to) * (animate_zoom_time_gap/1.5)
-    var time_to_trigger_move =  step_one_time;
-    var time_to_trigger_zoom = step_one_time * 2.5;
-    var time_to_trigger_marker = step_one_time * 5;
+    var zoom_out_time = (map.getZoom() - map_zoom_out_to) * animate_zoom_time_gap
+    var time_to_trigger_move =  zoom_out_time * 2;
+    var time_to_trigger_zoom = time_to_trigger_move * 1.5;
+    var time_to_trigger_marker = time_to_trigger_zoom*1.6;
 
     animateMapZoomTo(map, map_zoom_out_to);
 
