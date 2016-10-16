@@ -24,24 +24,51 @@ $(window).scroll( function(){
 
 
 $( document ).ready(function() {
-document.getElementById('hint_ul').style["opacity"] = "0";
+    document.getElementById('hint_ul').style["opacity"] = "0";
 
-function set_window(){
-	var header_height = ($('#head').height() / 2);
-	var hint_height = ($('#hint').height() / 2);
-	var family_height = ($('#family').height());
-	var window_height = $(window).height();
-	document.getElementById('hint').style["padding-top"] = (header_height - hint_height).toString() + "px";
-	console.log(window_height)
-	document.getElementById('map').style["height"] = (100 * ((window_height - family_height) / window_height) ).toString() + "vh";
+    function set_window(){
+    	var header_height = ($('#head').height() / 2);
+    	var hint_height = ($('#hint').height() / 2);
+    	var family_height = ($('#family').height());
+    	var window_height = $(window).height();
+    	document.getElementById('hint').style["padding-top"] = (header_height - hint_height).toString() + "px";
+    	console.log(window_height)
+    	document.getElementById('map').style["height"] = (100 * ((window_height - family_height) / window_height) ).toString() + "vh";
 
-}
-set_window();
+    }
+    set_window();
 
-$(window).resize(function(e) {
+    $(window).resize(function(e) {
 		console.log("set window");
 		set_window();
 	});
+    var menu_open = false;
+    $('#map_menu').click(function(e) {
+        if(!menu_open) {
+            $('#joe_button').css('top',  '3em');
+            $('#dan_button').css('top',  '5em');
+            $('#lid_button').css('top',  '7em');
+            $('#mike_button').css('top', '9em');
+            $('#tom_button').css('top',  '11em');
+            $('#sam_button').css('top',  '13em');
+            $('#mom_button').css('top',  '15em');
+            $('#dad_button').css('top',  '17em');
+            $('#diego_button').css('top', '19em');
+            menu_open = true;
+        }
+        else {
+            $('#joe_button').css('top',  '1em');
+            $('#dan_button').css('top',  '1em');
+            $('#lid_button').css('top',  '1em');
+            $('#mike_button').css('top', '1em');
+            $('#tom_button').css('top',  '1em');
+            $('#sam_button').css('top',  '1em');
+            $('#mom_button').css('top',  '1em');
+            $('#dad_button').css('top',  '1em');
+            $('#diego_button').css('top', '1em');
+            menu_open = false;
+        }
+    });
 });
 
 function handle_face_click(name, redirect) {
@@ -57,31 +84,31 @@ function handle_face_click(name, redirect) {
 }
 
 $(function() {
-	$('.btn_mike_landscape').click(function(e) {
+	$('.btn_mike').click(function(e) {
         handle_face_click('mike', '')
     });
-	$('.btn_joe_landscape').click(function(e) {
+	$('.btn_joe').click(function(e) {
         handle_face_click('joe', '');
     });
-	$('.btn_mom_landscape').click(function(e) {
+	$('.btn_mom').click(function(e) {
         handle_face_click('mom', '');
     });
-	$('.btn_dad_landscape').click(function(e) {
+	$('.btn_dad').click(function(e) {
         handle_face_click('dad', '');
     });
-	$('.btn_tom_landscape').click(function(e) {
+	$('.btn_tom').click(function(e) {
         handle_face_click('tom', 'http://www.cocozzello.com');
     });
-	$('.btn_sam_landscape').click(function(e) {
+	$('.btn_sam').click(function(e) {
         handle_face_click('sam', 'http://www.cocozzello.com/sam');
     });
-	$('.btn_lidnesy_landscape').click(function(e) {
+	$('.btn_lidnesy').click(function(e) {
         handle_face_click('lidnesy', '');
     });
-    $('.btn_dan_landscape').click(function(e) {
+    $('.btn_dan').click(function(e) {
         handle_face_click('dan', '');
     });
-	$('.btn_diego_landscape').click(function(e) {
+	$('.btn_diego').click(function(e) {
         handle_face_click('diego', '');
     });
 });
@@ -310,17 +337,16 @@ function initMap() {
         draggable: false,
         zoomControl: false,
         scrollwheel: false,
+        mapTypeControl: false,
         disableDoubleClickZoom: true,
         mapTypeId: 'terrain'});
 
 
-    console.log(people[name_of_person_clicked]['content'])
-    console.log(people[name_of_person_clicked]['loc'])
     infoWindow = new google.maps.InfoWindow({
-      content: people[name_of_person_clicked]['content']
+      content: people['dad']['content']
     });
     marker = new google.maps.Marker({
-        position: people[name_of_person_clicked]['loc'],
+        position: people['dad']['loc'],
         map: map,
         title: 'Favorite Location'
     });
@@ -344,6 +370,7 @@ function moveTo(name) {
 
     // Hide marker
     marker.setVisible(false);
+    infoWindow.close();
 
     clear_pending_animations();
     var zoom_out_time = (map.getZoom() - map_zoom_out_to) * animate_zoom_time_gap

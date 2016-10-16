@@ -86,12 +86,121 @@
 }
 
 #map {
-	min-height: 300px;
+	min-height: 330px;
 	z-index: 0;
 }
+
+#map_container:hover #description {
+	margin-top: -100px;
+}
+
+#description {
+	padding-top: 1em;
+	transition: margin-top 1s;
+	position: absolute;
+	width: 100%;
+	z-index: 1;
+}
+
+#map_menu {
+	left: 1em;
+	top: 1em;
+	z-index: 2;
+    line-height: 26px;
+    margin-top: -2px;
+}
+
+#joe_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s;
+}
+#dan_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s .1s;
+}
+#lid_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s .2s;
+}
+#mike_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s .3s;
+}
+#tom_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s .4s;
+}
+#sam_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s .5s;
+}
+#mom_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s .6s;
+}
+#dad_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s .7s;
+}
+#diego_button {
+	left: 2em;
+	top: 1em;
+	transition: top .4s .8s;
+}
+
+
+.map_button {
+	z-index: 1;
+	position: absolute;
+	background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 2px 6px;
+    cursor: pointer;
+    margin-bottom: 22px;
+    text-align: center;
+    color: rgb(25, 25, 25);
+    font-size: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: inline-block;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none; 
+}
+
+#map_title {
+	text-align: center;
+	position: relative;
+ }
+
+#map_menu:hover {
+	box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 3px;
+}
+
+#map_menu:active {
+	box-shadow: none;
+}
+
+#map_container {
+	position: relative;
+	text-align: center;
+}
+
 #family {
 	box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, .5);
-	z-index: 1;
+	z-index: 2;
 	position: relative;
 }
 body {

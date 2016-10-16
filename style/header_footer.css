@@ -10,7 +10,7 @@
 				font-family: 'Lato',serif;
 			}
 			header {
-				z-index: 2;
+				z-index: 100;
 				padding-top: .2em;
 				padding-bottom: .2em;
 				position: fixed;
