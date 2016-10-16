@@ -87,8 +87,7 @@ $(function() {
 });
 
 var map, marker_tom, marker_sam, marker_lid, marker_mike, marker_joe, marker_mom, marker_dad, marker_dan, marker_diego;
-
-// var tomiw, samiw, lidiw, mikeiw, joeiw, momiw, dadiw, daniw, diegoiw;
+var infoWindow;
 var animate_zoom_time_gap = 200;
 var map_zoom_out_to       = 1;
 
@@ -317,7 +316,7 @@ function initMap() {
 
     console.log(people[name_of_person_clicked]['content'])
     console.log(people[name_of_person_clicked]['loc'])
-    var tomiw = new google.maps.InfoWindow({
+    infoWindow = new google.maps.InfoWindow({
       content: people[name_of_person_clicked]['content']
     });
     marker = new google.maps.Marker({
@@ -326,7 +325,7 @@ function initMap() {
         title: 'Favorite Location'
     });
     marker.addListener('click', function() {
-      tomiw.open(map, marker);
+      infoWindow.open(map, marker);
     });
 }
 
@@ -375,6 +374,7 @@ function moveTo(name) {
 };
 
 function moveMarker( name ) {
+    infoWindow.setContent(people[name]['content']);
     marker.setPosition( new google.maps.LatLng( people[name]['loc'] ) );
 };
 
