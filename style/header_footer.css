@@ -35,10 +35,6 @@
 				font-weight: 100;
 			}
 
-			#name_small {
-				height: 52px;
-			}
-
 			#contact_button:focus {
 				background-color: #EEEEEE;
 			}
@@ -140,36 +136,3 @@
 					display: none;
 				}
 			}
-
-			
-
-
-			/*
-			Set up header for small view
-			*/
-			@media (max-width: 630px) {
-				#name_big, #leftSide h3 {
-					display: none;
-				}
-			}
-
-
-			@media (min-width: 630px) {
-				#name_small {
-					display: none;
-				}
-			}
-			
-
-			
-
-
-
-			
-
-			
-			
-			
-
-
-			

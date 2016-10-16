@@ -48,7 +48,7 @@ function handle_face_click(name, redirect) {
     if (name_of_person_clicked == name) {
         // Go to mike webpage
         console.log(redirect)
-        window.location.href = redirect;
+        location.assign(redirect);
     }
     else {
         name_of_person_clicked = name;
@@ -70,10 +70,10 @@ $(function() {
         handle_face_click('dad', '');
     });
 	$('.btn_tom_landscape').click(function(e) {
-        handle_face_click('tom', 'www.cocozzello.com');
+        handle_face_click('tom', 'http://www.cocozzello.com');
     });
 	$('.btn_sam_landscape').click(function(e) {
-        handle_face_click('sam', 'www.cocozzello.com/sam');
+        handle_face_click('sam', 'http://www.cocozzello.com/sam');
     });
 	$('.btn_lidnesy_landscape').click(function(e) {
         handle_face_click('lidnesy', '');
@@ -111,7 +111,7 @@ var momContentString = '<div id="content">'+
 
 var people = {
     'mike': {
-        'loc': {lat: 51.503324, lng: -0.1217317},
+        'loc': {lat: 51.503324, lng: -0.119543},
         'zoom': 17,
         'content': "London Eye" },
     'tom': {
@@ -120,18 +120,18 @@ var people = {
         'content': 'Tom hasnt set a favorite place' },
     'sam': {
         'loc': {lat: 13.7515912, lng: 100.4926579},
-        'zoom': 15,
+        'zoom': 17,
         'content': "The Temple of Emerald Buddha" },
     'lidnesy': {
-        'loc': {lat: 21.3279758,lng: -157.9391622},
+        'loc': {lat: 21.3069646, lng: -157.8581215},
         'zoom': 12,
         'content': "Honolulu"},
     'dan': {
-        'loc': {lat: -33.8642497, lng: 151.1876884},
+        'loc': {lat: -33.8686055, lng: 151.2090233},
         'zoom': 13,
         'content': "Sydney Austraila" },
     'dad': {
-        'loc': {lat: 39.4877302, lng: 16.2891784},
+        'loc': {lat: 39.4855002, lng: 16.2952093},
         'zoom': 14,
         'content': "Town Named After Our Family" },
     'mom': {
@@ -140,30 +140,180 @@ var people = {
         'content': momContentString },
     'diego': {
         'loc': {lat: 41.0221779, lng: -83.922091},
-        'zoom': 13,
+        'zoom': 17,
         'content': "The Gilboa Town Bull" },
     'joe': {
-        'loc': {lat: 40.6451594, lng: -74.085084},
+        'loc': {lat: 40.6782722, lng: -73.9442666},
         'zoom': 11,
         'content': "Brooklyn" },
     'jim_bob': {
-        'loc': {lat: 41.0221779, lng: -83.922091},
+        'loc': {lat: 40.6782722, lng:-73.9442666},
         'zoom': 5,
         'content': 'Rando'}
 };
 
+var mapStyle = [
+    {
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#ff4400"
+            },
+            {
+                "saturation": -68
+            },
+            {
+                "lightness": -4
+            },
+            {
+                "gamma": 0.72
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.icon"
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#0077ff"
+            },
+            {
+                "gamma": 3.1
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "stylers": [
+            {
+                "hue": "#00ccff"
+            },
+            {
+                "gamma": 0.44
+            },
+            {
+                "saturation": -33
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "stylers": [
+            {
+                "hue": "#44ff00"
+            },
+            {
+                "saturation": -23
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "hue": "#007fff"
+            },
+            {
+                "gamma": 0.77
+            },
+            {
+                "saturation": 65
+            },
+            {
+                "lightness": 99
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "gamma": 0.11
+            },
+            {
+                "weight": 5.6
+            },
+            {
+                "saturation": 99
+            },
+            {
+                "hue": "#0091ff"
+            },
+            {
+                "lightness": -86
+            }
+        ]
+    },
+    {
+        "featureType": "transit.line",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": -48
+            },
+            {
+                "hue": "#ff5e00"
+            },
+            {
+                "gamma": 1.2
+            },
+            {
+                "saturation": -23
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "saturation": -64
+            },
+            {
+                "hue": "#ff9100"
+            },
+            {
+                "lightness": 16
+            },
+            {
+                "gamma": 0.47
+            },
+            {
+                "weight": 2.7
+            }
+        ]
+    }
+];
+
+var mapStyleNone = [
+          {
+            featureType: "all",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ]
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-      center: people['tom']['loc'],
-      zoom: 10
+      center: people['dad']['loc'],
+      zoom: 13,
+      styles: mapStyle
     });
-
     map.setOptions( {
         draggable: false,
         zoomControl: false,
         scrollwheel: false,
         disableDoubleClickZoom: true,
         mapTypeId: 'terrain'});
+
 
     console.log(people[name_of_person_clicked]['content'])
     console.log(people[name_of_person_clicked]['loc'])
@@ -178,8 +328,6 @@ function initMap() {
     marker.addListener('click', function() {
       tomiw.open(map, marker);
     });
-
-
 }
 
 function moveToLocation(loc){
@@ -204,6 +352,8 @@ function moveTo(name) {
     var time_to_trigger_zoom = time_to_trigger_move * 1.5;
     var time_to_trigger_marker = time_to_trigger_zoom*1.6;
 
+    // remove all map attributes to make scroller smoother
+    map.setOptions( { styles: mapStyleNone});
     animateMapZoomTo(map, map_zoom_out_to);
 
     timeouts.push( setTimeout(function (){
@@ -217,6 +367,10 @@ function moveTo(name) {
     timeouts.push( setTimeout(function (){
         marker.setVisible(true);
         marker.setAnimation(google.maps.Animation.DROP);
+    }, time_to_trigger_marker));
+
+    timeouts.push( setTimeout(function (){
+        map.setOptions( { styles: mapStyle});
     }, time_to_trigger_marker));
 };
 
