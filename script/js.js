@@ -1,7 +1,17 @@
 
 
 var hidden = 0;
+var position = {
+    'lat': 39.4855002,
+    'lng': 16.2952093
+}
+var numDeltas = 100;
+var delay = 10; //milliseconds
+var i = 0;
+var deltaLat;
+var deltaLng;
 var name_of_person_clicked = 'jim_bob'
+
 $(window).scroll( function(){
 	if($(window).scrollTop() > 0)
 		hidden = 0;
@@ -113,7 +123,7 @@ $(function() {
     });
 });
 
-var map, marker_tom, marker_sam, marker_lid, marker_mike, marker_joe, marker_mom, marker_dad, marker_dan, marker_diego;
+var map, marker;
 var infoWindow;
 var animate_zoom_time_gap = 200;
 var map_zoom_out_to       = 1;
@@ -138,11 +148,11 @@ var momContentString = '<div id="content">'+
 var people = {
     'mike': {
         'loc': {lat: 51.503324, lng: -0.119543},
-        'zoom': 17,
+        'zoom': 10,
         'content': "London Eye" },
     'tom': {
         'loc': {lat: 43.9959019, lng: -92.6212583},
-        'zoom': 12,
+        'zoom': 8,
         'content': 'Tom hasnt set a favorite place' },
     'sam': {
         'loc': {lat: 13.7515912, lng: 100.4926579},
@@ -317,20 +327,10 @@ var mapStyle = [
     }
 ];
 
-var mapStyleNone = [
-          {
-            featureType: "all",
-            elementType: "labels",
-            stylers: [
-              { visibility: "off" }
-            ]
-          }
-        ]
-
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: people['dad']['loc'],
-      zoom: 13,
+      zoom: 10,
       styles: mapStyle
     });
     map.setOptions( {
@@ -366,43 +366,45 @@ function moveTo(name) {
     var temp_loc  = people[name]['loc']
     var temp_zoom = people[name]['zoom']
 
-    moveMarker(name);
-
-    // Hide marker
-    marker.setVisible(false);
     infoWindow.close();
+    change_content(name);
+
 
     clear_pending_animations();
-    var zoom_out_time = (map.getZoom() - map_zoom_out_to) * animate_zoom_time_gap
+    var zoom_out_time = 2000;
     var time_to_trigger_move =  zoom_out_time * 2;
-    var time_to_trigger_zoom = time_to_trigger_move * 1.5;
-    var time_to_trigger_marker = time_to_trigger_zoom*1.6;
+    var time_to_trigger_zoom = time_to_trigger_move * 1.3;
+    var time_to_trigger_marker = time_to_trigger_zoom * 1.3;
 
     // remove all map attributes to make scroller smoother
-    map.setOptions( { styles: mapStyleNone});
-    animateMapZoomTo(map, map_zoom_out_to);
+    // animateMapZoomTo(map, map_zoom_out_to);
+    map.setZoom(map_zoom_out_to);
+
+    timeouts.push( setTimeout(function (){
+        animate_marker(temp_loc);
+    }, 2000));
+
+    timeouts.push( setTimeout(function (){
+        marker.setPosition(people[name]['loc']);
+    }, time_to_trigger_move));
 
     timeouts.push( setTimeout(function (){
         moveToLocation(temp_loc);
     }, time_to_trigger_move));
 
+
+
     timeouts.push( setTimeout(function (){
-        animateMapZoomTo(map, temp_zoom);
+        map.setZoom(temp_zoom);
     }, time_to_trigger_zoom));
 
     timeouts.push( setTimeout(function (){
-        marker.setVisible(true);
         marker.setAnimation(google.maps.Animation.DROP);
-    }, time_to_trigger_marker));
-
-    timeouts.push( setTimeout(function (){
-        map.setOptions( { styles: mapStyle});
     }, time_to_trigger_marker));
 };
 
-function moveMarker( name ) {
+function change_content( name ) {
     infoWindow.setContent(people[name]['content']);
-    marker.setPosition( new google.maps.LatLng( people[name]['loc'] ) );
 };
 
 function clear_pending_animations() {
@@ -413,13 +415,21 @@ function clear_pending_animations() {
     timeouts = [];
 }
 
-function animateMapZoomTo(map, targetZoom) {
-    var currentZoom = arguments[2] || map.getZoom();
-    if (currentZoom != targetZoom) {
-        google.maps.event.addListenerOnce(map, 'zoom_changed', function (event) {
-            animateMapZoomTo(map, targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
-        });
-        setTimeout(function(){ map.setZoom(currentZoom) }, animate_zoom_time_gap);
-    }
+
+function animate_marker(loc){
+    i = 0;
+    deltaLat = (loc['lat'] - position['lat'])/numDeltas;
+    deltaLng = (loc['lng'] - position['lng'])/numDeltas;
+    moveMarker();
 }
 
+function moveMarker(){
+    position['lat'] += deltaLat;
+    position['lng'] += deltaLng;
+    var latlng = new google.maps.LatLng(position['lat'], position['lng']);
+    marker.setPosition(latlng);
+    if(i!=numDeltas){
+        i++;
+        setTimeout(moveMarker, delay);
+    }
+}
