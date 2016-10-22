@@ -12,36 +12,69 @@ var deltaLat;
 var deltaLng;
 var name_of_person_clicked = 'jim_bob'
 
-$(window).scroll( function(){
-	if($(window).scrollTop() > 0)
-		hidden = 0;
-	else
-		hidden = 1;
-
-	if (hidden == 0 &&  $('body').width() > 390){
-		document.getElementById('head').style.removeProperty("backgroundColor");
-	    document.getElementById('head').style["transition"] = "background-color 1s .2s ease";
-	    document.getElementById('head').style["backgroundColor"] = "rgba(29, 40, 34, .5)";
-		document.getElementById('head').style["box-shadow"] = "0px 4px 6px 2px rgba(0, 0, 0, .2)";
-	}
-	else {
-		document.getElementById('head').style.removeProperty("backgroundColor");
-	    document.getElementById('head').style["transition"] = "background-color 1s .2s ease";
-        document.getElementById('head').style["backgroundColor"] = "transparent";
-	    document.getElementById('head').style["box-shadow"] = "none";
-	}
-});
+var family_members_button_clicked = false;
 
 
-$( document ).ready(function() {
-    document.getElementById('hint_ul').style["opacity"] = "0";
+$(window).on('load', function() {
+
+    $('#family_overlay').css('opacity', 0);
+    $('#family_help1').css('margin-left', 0);
+    $('#family_help2').css('margin-left', 0);
+
+
+    window.setTimeout(function() {
+    $('#family_help1').css('margin-left', '3000px');
+
+    }, 6000);
+
+    window.setTimeout(function() {
+    $('#family_help2').css('margin-left', '3000px');
+
+    }, 6000);
+
+
+    $(window).scroll( function(){
+        if($(window).scrollTop() > 0)
+            hidden = 0;
+        else
+            hidden = 1;
+
+        if (hidden == 0 &&  $('body').width() > 390){
+            document.getElementById('head').style.removeProperty("backgroundColor");
+            document.getElementById('head').style["transition"] = "background-color 1s .2s ease";
+            document.getElementById('head').style["background-color"] = "rgba(29, 40, 34, .5)";
+            document.getElementById('head').style["box-shadow"] = "0px 4px 6px 2px rgba(0, 0, 0, .2)";
+        }
+        else {
+            document.getElementById('head').style.removeProperty("backgroundColor");
+            document.getElementById('head').style["transition"] = "background-color 1s .2s ease";
+            document.getElementById('head').style["background-color"] = "transparent";
+            document.getElementById('head').style["box-shadow"] = "none";
+        }
+    });
+
+    // move user to the map section
+    $(function(){
+        $(".person").click(function() {
+            var emSize = parseFloat($("body").css("font-size"));
+            $('html, body').animate({
+                scrollTop: $("#map_container").offset().top - (emSize * 1)
+            }, 750);
+            if (! family_members_button_clicked) {
+                window.setTimeout(function() {
+                    $('#map_menu').click()
+                }, 1000);
+                family_members_button_clicked = true;
+            }
+
+            return false;
+        });
+    });
 
     function set_window(){
     	var header_height = ($('#head').height() / 2);
-    	var hint_height = ($('#hint').height() / 2);
     	var family_height = ($('#family').height());
     	var window_height = $(window).height();
-    	document.getElementById('hint').style["padding-top"] = (header_height - hint_height).toString() + "px";
     	console.log(window_height)
     	document.getElementById('map').style["height"] = (100 * ((window_height - family_height) / window_height) ).toString() + "vh";
 
@@ -330,7 +363,7 @@ var mapStyle = [
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: people['dad']['loc'],
-      zoom: 10,
+      zoom: 11,
       styles: mapStyle
     });
     map.setOptions( {

@@ -8,6 +8,7 @@
   <meta name="description" content="Family Website">
   <meta name="keywords" content="Famil,Website">
   <meta name="author" content="Tom cocozzello">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style/bootstrap-responsive.min.css" />
@@ -27,30 +28,34 @@
       </h1>
       <h3>Family Website</h3>
     </div>
-    <div id="rightSide">
-      <ul id="hint_ul">
-        <li>
-          <p id="hint">Single click A face to see their favorite location.</p>
-          <p id="hint">Double click A face to go to their website</p>
-        </li>
-      </ul>
-    </div>
+
   </header>
 
+  <div id="picture_container">   
+    
+    <div id="picture_description">
+      <div id="family_help1" class="family_help map_button">Single click A face to see their favorite location</div>
+      <br>
+      <div id="family_help2" class="family_help map_button">Double click A face to go to their website</div>
+    </div>
+    <img id="family" src="images/family.JPG" width="100%" alt="Planets" usemap="#planetmap">
+    <img id="family_overlay" src="images/family_overlay.png" width="100%" alt="Planets" usemap="#planetmap">
+    
+  </div>
+ 
+  <button class="btn btn_override btn_dan btn_dan_landscape person" type="button"></button>
+  <button class="btn btn_override btn_lidnesy btn_lidnesy_landscape person" type="button"></button>
+  <button class="btn btn_override btn_mike btn_mike_landscape person" type="button"></button>
+  <button class="btn btn_override btn_joe btn_joe_landscape person" type="button"></button>
+  <button class="btn btn_override btn_dad btn_dad_landscape person" type="button"></button>
+  <button class="btn btn_override btn_mom btn_mom_landscape person" type="button"></button>
+  <button class="btn btn_override btn_tom btn_tom_landscape person" type="button"></button>
+  <button class="btn btn_override btn_sam btn_sam_landscape person" type="button"></button>
+  <button class="btn btn_override btn_diego btn_diego_landscape person" type="button"></button>
 
-  <img id="family" src="images/family.JPG" width="100%" alt="Planets" usemap="#planetmap">
 
-  <button class="btn btn_override btn_dan btn_dan_landscape" type="button"></button>
-  <button class="btn btn_override btn_lidnesy btn_lidnesy_landscape" type="button"></button>
-  <button class="btn btn_override btn_mike btn_mike_landscape" type="button"></button>
-  <button class="btn btn_override btn_joe btn_joe_landscape" type="button"></button>
-  <button class="btn btn_override btn_dad btn_dad_landscape" type="button"></button>
-  <button class="btn btn_override btn_mom btn_mom_landscape" type="button"></button>
-  <button class="btn btn_override btn_tom btn_tom_landscape" type="button"></button>
-  <button class="btn btn_override btn_sam btn_sam_landscape" type="button"></button>
-  <button class="btn btn_override btn_diego btn_diego_landscape" type="button"></button>
+
   <div id="map_container">
-    <div id="description"><div id="map_title" class="map_button">Click A Name to show their Favorite Place</div></div>
     <div id="map_menu" class="map_button">FAMILY MEMBERS</div>
     <div id="joe_button" class="map_button btn_joe">Joe</div>
     <div id="dan_button" class="map_button btn_dan">Dan</div>
