@@ -17,21 +17,14 @@ var family_members_button_clicked = false;
 
 $(window).on('load', function() {
 
-    $('#family_overlay').css('opacity', 0);
-    $('#family_help1').css('margin-left', 0);
-    $('#family_help2').css('margin-left', 0);
-
-
-    window.setTimeout(function() {
-    $('#family_help1').css('margin-left', '3000px');
-
-    }, 6000);
-
-    window.setTimeout(function() {
-    $('#family_help2').css('margin-left', '3000px');
-
-    }, 6000);
-
+    $('#MainInstructionsContainer').css('opacity', 0);
+    // NOTE(tom): this timeout has to be the same as the transition of the opacity property on MainInstructionsContainer
+    setTimeout(
+        function() {
+            $('#MainInstructionsContainer').css('visibility', 'hidden');
+        },
+        1000
+    );
 
     $(window).scroll( function(){
         if($(window).scrollTop() > 0)
@@ -115,15 +108,14 @@ $(window).on('load', function() {
 });
 
 function handle_face_click(name, redirect) {
-    if (name_of_person_clicked == name) {
-        // Go to mike webpage
+    if (redirect !== '') {
+        // Go to webpage
         console.log(redirect)
         location.assign(redirect);
     }
     else {
-        name_of_person_clicked = name;
+        moveTo(name);
     }
-    moveTo(name);
 }
 
 $(function() {
