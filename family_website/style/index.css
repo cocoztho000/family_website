@@ -1,9 +1,9 @@
 .btn_override {
 	background: transparent;
-	border-radius: 50%;	
+	border-radius: 50%;
 	border: none;
     box-shadow: none;
-	z-index: 6;
+	z-index: 101;
 	cursor: pointer;
 }
 .btn_override:hover, .btn_override:focus {
@@ -180,7 +180,7 @@
     -khtml-user-select: none;    /* Konqueror */
     -moz-user-select: none;      /* Firefox */
     -ms-user-select: none;       /* Internet Explorer/Edge */
-    user-select: none; 
+    user-select: none;
 }
 
 #map_title {
@@ -249,7 +249,7 @@
     transition: opacity 1s ease-in-out;
     -moz-transition: opacity 1s ease-in-out;
     -webkit-transition: opacity 1s ease-in-out;
-}	
+}
 
 #MainInstructions {
 	text-align: center;
