@@ -10,7 +10,6 @@ var delay = 10; //milliseconds
 var i = 0;
 var deltaLat;
 var deltaLng;
-var name_of_person_clicked = 'jim_bob'
 
 var family_members_button_clicked = false;
 
@@ -46,24 +45,6 @@ $(window).on('load', function() {
         }
     });
 
-    // move user to the map section
-    $(function(){
-        $(".person").click(function() {
-            var emSize = parseFloat($("body").css("font-size"));
-            $('html, body').animate({
-                scrollTop: $("#map_container").offset().top - (emSize * 1)
-            }, 750);
-            if (! family_members_button_clicked) {
-                window.setTimeout(function() {
-                    $('#map_menu').click()
-                }, 1000);
-                family_members_button_clicked = true;
-            }
-
-            return false;
-        });
-    });
-
     function set_window(){
     	var header_height = ($('#head').height() / 2);
     	var family_height = ($('#family').height());
@@ -72,6 +53,7 @@ $(window).on('load', function() {
     	document.getElementById('map').style["height"] = (100 * ((window_height - family_height) / window_height) ).toString() + "vh";
 
     }
+
     set_window();
 
     $(window).resize(function(e) {
@@ -83,7 +65,7 @@ $(window).on('load', function() {
         if(!menu_open) {
             $('#joe_button').css('top',  '3em');
             $('#dan_button').css('top',  '5em');
-            $('#lid_button').css('top',  '7em');
+            $('#lidnesy_button').css('top',  '7em');
             $('#mike_button').css('top', '9em');
             $('#tom_button').css('top',  '11em');
             $('#sam_button').css('top',  '13em');
@@ -95,7 +77,7 @@ $(window).on('load', function() {
         else {
             $('#joe_button').css('top',  '1em');
             $('#dan_button').css('top',  '1em');
-            $('#lid_button').css('top',  '1em');
+            $('#lidnesy_button').css('top',  '1em');
             $('#mike_button').css('top', '1em');
             $('#tom_button').css('top',  '1em');
             $('#sam_button').css('top',  '1em');
@@ -107,44 +89,64 @@ $(window).on('load', function() {
     });
 });
 
-function handle_face_click(name, redirect) {
+// move user to the map section
+function scroll_to_map(){
+        
+    var emSize = parseFloat($("body").css("font-size"));
+    $('html, body').animate({
+        scrollTop: $("#map_container").offset().top - (emSize * 1)
+    }, 750);
+    if (! family_members_button_clicked) {
+        window.setTimeout(function() {
+            $('#map_menu').click()
+        }, 1000);
+        family_members_button_clicked = true;
+    }
+    return false;
+}
+
+function handle_face_click(name, redirect_to_website = true) {
+    redirect = ''
+    if (redirect_to_website) {
+        redirect = family_info[name];
+    }
+    else {
+        name = name.replace("_button", "");
+    }
+
     if (redirect !== '') {
         // Go to webpage
-        console.log(redirect)
+        console.log(name + '\'s website: ' + redirect);
         location.assign(redirect);
     }
     else {
+        // Default to scroll to map if someone doesn't have a website
+        scroll_to_map();
         moveTo(name);
     }
 }
 
+family_info = {
+    'mike': '',
+    'joe': 'http://tinytaxidermy.com/',
+    'mom': '',
+    'dad': '',
+    'tom': 'http://tom.cocozzello.com',
+    'sam': 'http://sam.cocozzello.com',
+    'lidnesy': '',
+    'dan': '',
+    'diego': ''
+};
+
 $(function() {
-	$('.btn_mike').click(function(e) {
-        handle_face_click('mike', '')
+	$('#mike, #joe, #mom, #dad, #tom, #sam, #lidnesy, #dan, #diego').click(function(e) {
+        handle_face_click($(this).attr('id'))
     });
-	$('.btn_joe').click(function(e) {
-        handle_face_click('joe', '');
-    });
-	$('.btn_mom').click(function(e) {
-        handle_face_click('mom', '');
-    });
-	$('.btn_dad').click(function(e) {
-        handle_face_click('dad', '');
-    });
-	$('.btn_tom').click(function(e) {
-        handle_face_click('tom', 'http://www.cocozzello.com');
-    });
-	$('.btn_sam').click(function(e) {
-        handle_face_click('sam', 'http://www.cocozzello.com/sam');
-    });
-	$('.btn_lidnesy').click(function(e) {
-        handle_face_click('lidnesy', '');
-    });
-    $('.btn_dan').click(function(e) {
-        handle_face_click('dan', '');
-    });
-	$('.btn_diego').click(function(e) {
-        handle_face_click('diego', '');
+});
+
+$(function() {
+    $('#joe_button, #dan_button, #lidnesy_button, #mike_button, #tom_button, #sam_button, #mom_button, #dad_button, #diego_button').click(function(e) {
+        handle_face_click($(this).attr('id'), false)
     });
 });
 
@@ -156,7 +158,6 @@ var map_zoom_out_to       = 1;
 // Keep track of all pending animations to clear them if someone triggers a differet
 // person
 var timeouts = [];
-
 
 var momContentString = '<div id="content">'+
         '<div id="siteNotice">'+
@@ -174,7 +175,9 @@ var people = {
     'mike': {
         'loc': {lat: 51.503324, lng: -0.119543},
         'zoom': 10,
-        'content': "London Eye" },
+        'content': 'London Eye',
+        'website': ''
+    },
     'tom': {
         'loc': {lat: 43.9959019, lng: -92.6212583},
         'zoom': 8,
@@ -387,9 +390,9 @@ function moveToLocation(loc){
 }
 
 function moveTo(name) {
-
-    var temp_loc  = people[name]['loc']
-    var temp_zoom = people[name]['zoom']
+    console.log(name);
+    var temp_loc  = people[name]['loc'];
+    var temp_zoom = people[name]['zoom'];
 
     infoWindow.close();
     change_content(name);
