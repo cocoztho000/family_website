@@ -12,12 +12,13 @@
 	box-shadow: none;
 	cursor: pointer;
 }
+
 .btn_dan_landscape {
 	height: 12vw;
 	width: 8vw;
 	position: absolute;
 	top: 12vw;
-	left: 26.7vw;
+	left: 26.2vw;
 }
 
 .btn_lidnesy_landscape {
@@ -32,21 +33,21 @@
 	width: 10vw;
 	position: absolute;
 	top: 23vw;
-	left: 20vw;
+	left: 19.5vw;
 }
 .btn_joe_landscape {
 	height: 14vw;
 	width: 10vw;
 	position: absolute;
-	top: 11vw;
-	left: 39vw;
+	top: 10vw;
+	left: 38vw;
 }
 .btn_dad_landscape {
 	height: 14vw;
 	width: 10vw;
 	position: absolute;
-	top: 11vw;
-	left: 48vw;
+	top: 10vw;
+	left: 47vw;
 }
 .btn_mom_landscape {
 	height: 14vw;

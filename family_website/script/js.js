@@ -36,12 +36,14 @@ $(window).on('load', function() {
             document.getElementById('head').style["transition"] = "background-color 1s .2s ease";
             document.getElementById('head').style["background-color"] = "rgba(29, 40, 34, .5)";
             document.getElementById('head').style["box-shadow"] = "0px 4px 6px 2px rgba(0, 0, 0, .2)";
+            document.getElementById('leftSide').style["color"] = "white";
         }
         else {
             document.getElementById('head').style.removeProperty("backgroundColor");
             document.getElementById('head').style["transition"] = "background-color 1s .2s ease";
             document.getElementById('head').style["background-color"] = "transparent";
             document.getElementById('head').style["box-shadow"] = "none";
+            document.getElementById('leftSide').style["color"] = "#002366";
         }
     });
 
@@ -91,14 +93,16 @@ $(window).on('load', function() {
 
 // move user to the map section
 function scroll_to_map(){
-        
+
     var emSize = parseFloat($("body").css("font-size"));
     $('html, body').animate({
         scrollTop: $("#map_container").offset().top - (emSize * 1)
     }, 750);
     if (! family_members_button_clicked) {
         window.setTimeout(function() {
-            $('#map_menu').click()
+            if (hidden === 1) {
+                $('#map_menu').click();
+            }
         }, 1000);
         family_members_button_clicked = true;
     }

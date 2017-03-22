@@ -15,14 +15,18 @@
 				padding-bottom: .2em;
 				position: fixed;
 				background-color: transparent;
-				display: inline-block;	
+				display: inline-block;
 				width: 100%;
-			} 
+			}
 
 			#leftSide {
 				display: inline-block;
 				padding-left: 2%;
-				color: #FFF;
+				color: #002366;
+				transition: color 4s ease-out;
+			    -moz-transition: color 4s ease-out;
+			    -webkit-transition: color 4s ease-out;
+			    -o-transition: color 4s ease-out;
 			}
 			h3 {
 				margin-top: -7px;
@@ -76,7 +80,7 @@
 				width: 100%;
 				bottom: 0;
 			}
-		
+
 			#linkFooter li {
 				text-align: left;
 				vertical-align: top;
@@ -85,7 +89,7 @@
 			}
 
 			#linkFooter li div{
-				display: table; 
+				display: table;
 			}
 
 			#linkFooter .test {
@@ -99,13 +103,13 @@
 				text-decoration: none;
 			}
 
-			#linkFooter a:hover { 
+			#linkFooter a:hover {
 				color: #CCCCCC;
 				opacity: 0.4;
 				cursor: pointer;
 			}
 
-			.footer_title { 
+			.footer_title {
 				color: #FFF;
 			}
 			#linkFooter li img {
@@ -117,7 +121,7 @@
 			Set up header for mobile
 			*/
 			@media (max-device-width: 1080px) {
-			    
+
 				#linkFooter li {
 					display: block;
 					text-align:  center;
@@ -129,7 +133,7 @@
 				#links a {
 					font-size: 2em;
 				}
-				
+
 			}
 			@media (max-device-width: 580px) {
 				#header_top_button {
